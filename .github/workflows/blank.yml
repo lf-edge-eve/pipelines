@@ -15,7 +15,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -29,3 +29,11 @@ jobs:
           cat /proc/cpuinfo
           cat /proc/meminfo
           qemu-system-x86_64 --version
+          git clone https://github.com/lf-edge/eden.git
+          cd ./eden
+          make clean
+          make build
+          ./eden config add default  
+          ./eden config set default --key=eve.accel --value=false
+          make build-tests
+          ./eden test ./tests/workflow
