@@ -1,6 +1,10 @@
 name: Docker
 
 on:
+  pull_request_target:
+    branches:
+      - main
+
   push:
     # Publish `main` as Docker `latest` image.
     branches:
